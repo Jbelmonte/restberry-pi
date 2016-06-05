@@ -1,0 +1,174 @@
+<!DOCTYPE HTML><html><head><title>TechTest API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.4.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>TechTest API documentation <small>version 1.0.0</small></h1><p>http://localhost:8080</p><h3 id="REST-API"><a href="#REST-API">REST API</a></h3><p>RESTful API to manage users that can access both REST API itself and web site.</p><p>API is mounted on path <code>/rest/users</code>.</p><p>Security based on Basic Authentication.</p><p>Available list of roles:</p><ul><li><code>ADMIN</code>: REST API administrator privileges</li><li><code>USER</code>: REST API user privileges</li><li><code>PAGE_1</code>, <code>PAGE_2</code>, <code>PAGE_3</code>: Site permissions</li></ul><blockquote><p>Any other role will be ignored.</p></blockquote><h3 id="Web"><a href="#Web">Web</a></h3><p>Web site is mounted on path <code>/site</code>.</p><p>Security is based on cookies. After a successful login, a new cookie named <code>JBRSESSID</code> is stored for path <code>/site</code> with an expiration duration of 5 minutes.</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="rest_users" class="panel-title">/rest/users</h3></div><div class="panel-body"><div class="top-resource-description"><p>Manage app users.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_rest_users"><span class="parent"></span>/rest/users</a> <span class="methods"><a href="#rest_users_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#rest_users_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_rest_users" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#rest_users_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>List all app users. Requires <code>ADMIN</code> permissions.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#rest_users_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a new user. Requires <code>ADMIN</code> permissions.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="rest_users_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/rest/users</h4></div><div class="modal-body"><div class="alert alert-info"><p>List all app users. Requires <code>ADMIN</code> permissions.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic</div><ul class="nav nav-tabs"><li class="active"><a href="#rest_users_get_response" data-toggle="tab">Response</a></li><li><a href="#rest_users_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="rest_users_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[{
+  "id": "1",
+  "username": "user",
+  "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+}]
+</code></pre></div><div class="tab-pane" id="rest_users_get_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="rest_users_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/rest/users</h4></div><div class="modal-body"><div class="alert alert-info"><p>Add a new user. Requires <code>ADMIN</code> permissions.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic</div><ul class="nav nav-tabs"><li class="active"><a href="#rest_users_post_request" data-toggle="tab">Request</a></li><li><a href="#rest_users_post_response" data-toggle="tab">Response</a></li><li><a href="#rest_users_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="rest_users_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "username": "user",
+  "password": "pwd",
+  "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+}
+</code></pre></div><div class="tab-pane" id="rest_users_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Created user with its internal identifier.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "id": "1",
+  "username": "user",
+  "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+}
+</code></pre></div><div class="tab-pane" id="rest_users_post_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_rest_users__id_"><span class="parent">/rest/users</span>/{id}</a> <span class="methods"><a href="#rest_users__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#rest_users__id__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#rest_users__id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_rest_users__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#rest_users__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a user by its internal identifier. Requires <code>ADMIN</code> or <code>USER</code> permissions.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#rest_users__id__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update user&#39;s username and roles. Requires <code>ADMIN</code> permissions.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#rest_users__id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Remove the user. Requires <code>ADMIN</code> permissions.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="rest_users__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/rest/users</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a user by its internal identifier. Requires <code>ADMIN</code> or <code>USER</code> permissions.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic</div><ul class="nav nav-tabs"><li class="active"><a href="#rest_users__id__get_request" data-toggle="tab">Request</a></li><li><a href="#rest_users__id__get_response" data-toggle="tab">Response</a></li><li><a href="#rest_users__id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="rest_users__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>User&#39;s internal identifier.</p></li></ul></div><div class="tab-pane" id="rest_users__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Created user with its internal identifier.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "id": "1",
+  "username": "user",
+  "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+}
+</code></pre></div><div class="tab-pane" id="rest_users__id__get_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="rest_users__id__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/rest/users</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update user&#39;s username and roles. Requires <code>ADMIN</code> permissions.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic</div><ul class="nav nav-tabs"><li class="active"><a href="#rest_users__id__put_request" data-toggle="tab">Request</a></li><li><a href="#rest_users__id__put_response" data-toggle="tab">Response</a></li><li><a href="#rest_users__id__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="rest_users__id__put_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>User&#39;s internal identifier.</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "username": "user",
+  "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+}
+</code></pre></div><div class="tab-pane" id="rest_users__id__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Created user with its internal identifier.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "id": "1",
+  "username": "user",
+  "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+}
+</code></pre></div><div class="tab-pane" id="rest_users__id__put_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="rest_users__id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/rest/users</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Remove the user. Requires <code>ADMIN</code> permissions.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic</div><ul class="nav nav-tabs"><li class="active"><a href="#rest_users__id__delete_request" data-toggle="tab">Request</a></li><li><a href="#rest_users__id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="rest_users__id__delete_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>User&#39;s internal identifier.</p></li></ul></div><div class="tab-pane" id="rest_users__id__delete_securedby">Secured by basic</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="site" class="panel-title">/site</h3></div><div class="panel-body"><div class="top-resource-description"><p>Web site</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_site_login_html"><span class="parent">/site</span>/login.html</a> <span class="methods"><a href="#site_login_html_get"><span class="badge badge_get">get</span></a> <a href="#site_login_html_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_site_login_html" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#site_login_html_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Login form.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#site_login_html_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Login action</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_login_html_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/site</span>/login.html</h4></div><div class="modal-body"><div class="alert alert-info"><p>Login form.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#site_login_html_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_login_html_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_login_html_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/site</span>/login.html</h4></div><div class="modal-body"><div class="alert alert-info"><p>Login action</p></div><ul class="nav nav-tabs"><li class="active"><a href="#site_login_html_post_request" data-toggle="tab">Request</a></li><li><a href="#site_login_html_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_login_html_post_request"><h3>Body</h3><p><strong>Type: application/x-www-form-urlencoded</strong></p><strong>Form Parameters</strong><ul><li><strong>username</strong>: <em>(string)</em><p>Username</p></li><li><strong>password</strong>: <em>(string)</em><p>Password</p></li></ul></div><div class="tab-pane" id="site_login_html_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Redirect to login or index page, depending on successful login.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_site_logout_html"><span class="parent">/site</span>/logout.html</a> <span class="methods"><a href="#site_logout_html_get"><span class="badge badge_get">get</span></a> <a href="#site_logout_html_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_site_logout_html" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Logout action</p></div><div class="list-group"><div onclick="window.location.href = '#site_logout_html_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#site_logout_html_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_logout_html_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/site</span>/logout.html</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#site_logout_html_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_logout_html_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Redirect to login page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/login.html)</em></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_logout_html_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/site</span>/logout.html</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#site_logout_html_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_logout_html_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Redirect to login page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/login.html)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_site_index_html"><span class="parent">/site</span>/index.html</a> <span class="methods"><a href="#site_index_html_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_site_index_html" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Main <strong>logged</strong> user page.</p></div><div class="list-group"><div onclick="window.location.href = '#site_index_html_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_index_html_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/site</span>/index.html</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#site_index_html_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_index_html_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Redirect to login page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/login.html)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_site_page1_html"><span class="parent">/site</span>/page1.html</a> <span class="methods"><a href="#site_page1_html_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_site_page1_html" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Page. Requires <code>PAGE_1</code> role.</p></div><div class="list-group"><div onclick="window.location.href = '#site_page1_html_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_page1_html_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/site</span>/page1.html</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#site_page1_html_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_page1_html_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Redirect to login page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/login.html)</em></li></ul><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Redirect to unauthorized error page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/restricted.html)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_site_page2_html"><span class="parent">/site</span>/page2.html</a> <span class="methods"><a href="#site_page2_html_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_site_page2_html" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Page. Requires <code>PAGE_2</code> role.</p></div><div class="list-group"><div onclick="window.location.href = '#site_page2_html_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_page2_html_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/site</span>/page2.html</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#site_page2_html_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_page2_html_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Redirect to login page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/login.html)</em></li></ul><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Redirect to unauthorized error page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/restricted.html)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_site_page3_html"><span class="parent">/site</span>/page3.html</a> <span class="methods"><a href="#site_page3_html_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_site_page3_html" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Page. Requires <code>PAGE_3</code> role.</p></div><div class="list-group"><div onclick="window.location.href = '#site_page3_html_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_page3_html_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/site</span>/page3.html</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#site_page3_html_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_page3_html_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Redirect to login page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/login.html)</em></li></ul><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Redirect to unauthorized error page.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>(string - default: /site/restricted.html)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_site_404_html"><span class="parent">/site</span>/404.html</a> <span class="methods"><a href="#site_404_html_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_site_404_html" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Not found error page.</p></div><div class="list-group"><div onclick="window.location.href = '#site_404_html_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_404_html_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/site</span>/404.html</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#site_404_html_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_404_html_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_site_restricted_html"><span class="parent">/site</span>/restricted.html</a> <span class="methods"><a href="#site_restricted_html_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_site_restricted_html" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Unauthorized error page.</p></div><div class="list-group"><div onclick="window.location.href = '#site_restricted_html_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="site_restricted_html_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/site</span>/restricted.html</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#site_restricted_html_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="site_restricted_html_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#rest_users">/rest/users</a></li><li><a href="#site">/site</a></li></ul></div></div></div></div></body></html>

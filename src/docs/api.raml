@@ -1,0 +1,230 @@
+#%RAML 0.8
+title: TechTest
+version: 1.0.0
+baseUri: http://localhost:8080
+
+securitySchemes:
+  - basic:
+      type: Basic Authentication
+
+documentation:
+ - title: REST API
+   content: |
+     RESTful API to manage users that can access both REST API itself and web site.
+     
+     API is mounted on path `/rest/users`.
+     
+     Security based on Basic Authentication.
+  
+     Available list of roles:
+     
+     * `ADMIN`: REST API administrator privileges
+     * `USER`: REST API user privileges
+     * `PAGE_1`, `PAGE_2`, `PAGE_3`: Site permissions
+     
+     > Any other role will be ignored.
+ - title: Web
+   content: |
+     Web site is mounted on path `/site`.
+     
+     Security is based on cookies. After a successful login,
+     a new cookie named `JBRSESSID` is stored for path `/site` with an expiration
+     duration of 5 minutes.
+
+
+/rest/users:
+  securedBy: [basic]
+  description: Manage app users.
+  get:
+    description: List all app users. Requires `ADMIN` permissions.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [{
+                "id": "1",
+                "username": "user",
+                "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+              }]
+  post:
+    description: Add a new user. Requires `ADMIN` permissions.
+    body:
+      application/json:
+        example: |
+          {
+            "username": "user",
+            "password": "pwd",
+            "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+          }
+    responses:
+      200:
+        description: Created user with its internal identifier.
+        body:
+          application/json:
+            example: |
+              {
+                "id": "1",
+                "username": "user",
+                "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+              }
+    
+  /{id}:
+    securedBy: [basic]
+    uriParameters:
+      id:
+        description: User's internal identifier.
+    get:
+      description: Get a user by its internal identifier. Requires `ADMIN` or `USER` permissions.
+      responses:
+        200:
+          description: Created user with its internal identifier.
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "1",
+                  "username": "user",
+                  "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+                }
+    put:
+      description: Update user's username and roles. Requires `ADMIN` permissions.
+      body:
+        application/json:
+          example: |
+            {
+              "username": "user",
+              "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+            }
+      responses:
+        200:
+          description: Created user with its internal identifier.
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "1",
+                  "username": "user",
+                  "roles": ["ADMIN", "PAGE_1", "PAGE_2", "PAGE_3"]
+                }
+    delete:
+      description: Remove the user. Requires `ADMIN` permissions.
+      
+      
+/site:
+  description: Web site
+  /login.html:
+    get:
+      description: Login form.
+      responses:
+        200:
+          body:
+            text/html:
+    post:
+      description: Login action
+      body:
+        application/x-www-form-urlencoded:
+          formParameters:
+            username:
+              description: Username
+            password:
+              description: Password
+      responses:
+        200:
+          description: Redirect to login or index page, depending on successful login.
+          headers:
+            Location:
+  /logout.html:
+    description: Logout action
+    get:
+      responses:
+        200:
+          description: Redirect to login page.
+          headers:
+            Location:
+              default: /site/login.html
+    post:
+      responses:
+        200:
+          description: Redirect to login page.
+          headers:
+            Location:
+              default: /site/login.html
+  /index.html:
+    description: Main **logged** user page.
+    get:
+      responses:
+        200:
+          body:
+            text/html:
+        302:
+          description: Redirect to login page.
+          headers:
+            Location:
+              default: /site/login.html
+  /page1.html:
+    description: Page. Requires `PAGE_1` role.
+    get:
+      responses:
+        200:
+          body:
+            text/html:
+        302:
+          description: Redirect to login page.
+          headers:
+            Location:
+              default: /site/login.html
+        403:
+          description: Redirect to unauthorized error page.
+          headers:
+            Location:
+              default: /site/restricted.html
+  /page2.html:
+    description: Page. Requires `PAGE_2` role.
+    get:
+      responses:
+        200:
+          body:
+            text/html:
+        302:
+          description: Redirect to login page.
+          headers:
+            Location:
+              default: /site/login.html
+        403:
+          description: Redirect to unauthorized error page.
+          headers:
+            Location:
+              default: /site/restricted.html
+  /page3.html:
+    description: Page. Requires `PAGE_3` role.
+    get:
+      responses:
+        200:
+          body:
+            text/html:
+        302:
+          description: Redirect to login page.
+          headers:
+            Location:
+              default: /site/login.html
+        403:
+          description: Redirect to unauthorized error page.
+          headers:
+            Location:
+              default: /site/restricted.html
+  /404.html:
+    description: Not found error page.
+    get:
+      responses:
+        200:
+          body:
+            text/html:
+  /restricted.html:
+    description: Unauthorized error page.
+    get:
+      responses:
+        200:
+          body:
+            text/html:
+
