@@ -42,17 +42,32 @@ Example:
 You can run the server with the following command:
 
 ```bash
-$ java -jar test-web-application
+$ java -jar test-web-application.jar
 ```
 
 Server will start listening on port `8080`. Example [http://localhost:8080]().
 
 ## Endpoints documentation
 
-Description of available endpoints, both REST API and web site, can be found in [docs](docs) folder, via:
+Description of available endpoints, both REST API and web site, can be found in [src/docs](src/docs) folder, via:
 
 * `api.raml`: RAML specification.
 * `api.html`: [HTML export](https://github.com/raml2html/raml2html) of the RAML specification.
+
+### Available users
+
+Initially, there's only one user in database:
+
+* ID: `1`
+* Username: `user1`
+* Password: `user1`
+* Roles: `ADMIN`
+
+Use this user's credentials to create new users using the REST API with any (or all) of the following roles:
+
+* `PAGE_1`
+* `PAGE_2`
+* `PAGE_3`
 
 
 ## Tests
