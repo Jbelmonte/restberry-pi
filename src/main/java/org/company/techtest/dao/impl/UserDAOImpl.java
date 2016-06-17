@@ -27,9 +27,9 @@ public class UserDAOImpl implements UserDAO {
 	protected void loadMockData() {
 		try {
 			User user1 = new User();
-			user1.setUsername("user1");
-			user1.setPassword("user1");
-			user1.getRoles().add("ADMIN");
+			user1.setUsername(MOCK_USERNAME);
+			user1.setPassword(MOCK_PASSWORD);
+			user1.setRoles(MOCK_ROLES);
 			save(user1);
 		} catch (PersistenceException e) {
 			// Won't happen

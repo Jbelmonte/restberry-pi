@@ -54,6 +54,8 @@ public class AppStarter {
 	// and pass it everywhere.
 	private UsersBO usersBo = new UsersBOImpl();
 
+	private HttpServer server = null;
+
 	public AppStarter() {
 	}
 
@@ -71,7 +73,7 @@ public class AppStarter {
 		 */
 		InetSocketAddress intfc = new InetSocketAddress(this.port);
 		LOGGER.info("Serving on " + intfc);
-		HttpServer server = HttpServer.create(intfc, MAX_BACKLOG);
+		server = HttpServer.create(intfc, MAX_BACKLOG);
 
 		/*
 		 * Add REST context with basic authentication mechanism
@@ -112,5 +114,9 @@ public class AppStarter {
 		 */
 		server.setExecutor(null);
 		server.start();
+	}
+
+	public void stop() {
+		server.stop(0);
 	}
 }
