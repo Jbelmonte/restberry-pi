@@ -29,6 +29,16 @@ public final class Constants {
 	 * Login endpoint.
 	 */
 	public static final String LOGIN_URL = "/login.html";
+	
+	/**
+	 * Username parameter name in login.
+	 */
+	public static final String LOGIN_USERNAME_PARAM = "username";
+	
+	/**
+	 * Password parameter name in login.
+	 */
+	public static final String LOGIN_PASSWORD_PARAM = "password";
 
 	/**
 	 * Logout endpoint.
