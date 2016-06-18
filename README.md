@@ -77,3 +77,14 @@ The repo does not contain unit test files. But you can test all endpoints with t
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/c77245b667a597e27107)
 
 
+In order to run Maven integrated tests, run the following command:
+
+```bash
+$ mvn clean verify
+```
+
+All tests will run and tests reports will be generated in `target` folder:
+
+* Surefire
+* Failsafe
+* JaCoCo: both unit and integration tests
