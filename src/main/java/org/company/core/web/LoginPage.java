@@ -15,10 +15,12 @@ public class LoginPage implements Page {
 
 	@Override
 	public String renderPage(HttpExchange exchange) {
-		String template = "<html><body><form method=\"POST\" action=\"" + basePath + Constants.LOGIN_URL + "\">"
-				+ "<div>Username: <input type=\"text\" name=\"username\"></div><br>"
-				+ "<div>Password: <input type=\"password\" name=\"password\"></div><br>"
-				+ "<div><button type=\"submit\">Login</button></div></form></body></html>";
+		String template = new StringBuilder("<html><body><form method=\"POST\" action=\"").append(basePath)
+				.append(Constants.LOGIN_URL).append("\">").append("<div>Username: <input type=\"text\" name=\"")
+				.append(Constants.LOGIN_USERNAME_PARAM).append("\"></div><br>")
+				.append("<div>Password: <input type=\"password\" name=\"").append(Constants.LOGIN_PASSWORD_PARAM)
+				.append("\"></div><br>")
+				.append("<div><button type=\"submit\">Login</button></div></form></body></html>").toString();
 		return template;
 	}
 

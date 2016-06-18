@@ -57,8 +57,8 @@ public class SiteAuthenticator extends Authenticator {
 	private Result doLogin(HttpExchange exchange) {
 		try {
 			Map<String, String> body = (Map<String, String>) exchange.getAttribute(Constants.ATTRIBUTE_PARAMETER_MAP);
-			String username = body.get("username");
-			String password = body.get("password");
+			String username = body.get(Constants.LOGIN_USERNAME_PARAM);
+			String password = body.get(Constants.LOGIN_PASSWORD_PARAM);
 			User user = usersBo.validateCredentials(username, password);
 
 			String token = UUID.randomUUID().toString();
@@ -74,6 +74,8 @@ public class SiteAuthenticator extends Authenticator {
 	}
 
 	private Result doLogout(HttpExchange exchange) {
+		String currentToken = getTokenCookie(exchange);
+		tokensUsers.remove(currentToken);
 		removeTokenCookie(exchange);
 		return redirectToLogin(exchange);
 	}

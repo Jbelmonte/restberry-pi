@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.company.core.dao.exceptions.ConstraintViolationException;
 import org.company.core.dao.exceptions.NotFoundException;
 import org.company.core.exceptions.BusinessException;
 import org.company.core.jaxrs.exceptions.InvalidRequestException;
@@ -109,6 +110,8 @@ public class UsersResourceImpl implements UsersResource {
 	protected ResourceException toResourceException(BusinessException e) {
 		if (ExceptionUtils.indexOfThrowable(e, NotFoundException.class) != -1) {
 			return new ResourceNotFoundException("There's no user with the given id", e);
+		} else if (ExceptionUtils.indexOfThrowable(e, ConstraintViolationException.class) != -1) {
+			return new InvalidRequestException("Invalid parameters", e);
 		} else {
 			return new ResourceException("An error occurred", e);
 		}

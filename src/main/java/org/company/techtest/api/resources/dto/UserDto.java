@@ -3,6 +3,8 @@ package org.company.techtest.api.resources.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,7 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * User data transfer object.
  */
 @JsonInclude(Include.NON_NULL)
-public class UserDto implements Serializable {
+@XmlRootElement
+public class UserDto implements Serializable, Comparable<UserDto> {
 	private static final long serialVersionUID = -8795238393651104480L;
 
 	@JsonProperty
@@ -53,6 +56,11 @@ public class UserDto implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public int compareTo(UserDto o) {
+		return id.compareTo(o.id) + username.compareTo(o.username) + (roles.equals(o.roles) ? 0 : 1);
 	}
 
 }
