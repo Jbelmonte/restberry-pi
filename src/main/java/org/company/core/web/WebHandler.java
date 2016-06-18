@@ -67,8 +67,8 @@ public class WebHandler implements HttpHandler {
 	private void success(HttpExchange exchange, String content) throws IOException {
 		byte[] data = content.getBytes("UTF8");
 
-		exchange.sendResponseHeaders(200, data.length);
 		exchange.getResponseHeaders().add("Content-Type", "text/html");
+		exchange.sendResponseHeaders(200, data.length);
 		exchange.getResponseBody().write(data);
 	}
 

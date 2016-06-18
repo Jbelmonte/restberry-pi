@@ -48,7 +48,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public String save(User t) throws PersistenceException {
 		if (t.getId() != null) {
-			throw new NotFoundException("Trying to create an existing user");
+			throw new PersistenceException("Trying to create an existing user");
 		}
 
 		// Validate
@@ -66,9 +66,10 @@ public class UserDAOImpl implements UserDAO {
 		if (!existsUserWithId(t.getId())) {
 			throw new NotFoundException("There's no user with the specified id");
 		}
-		
-		// Do not update password
+
+		// Only update roles
 		User existing = findById(t.getId());
+		t.setUsername(existing.getUsername());
 		t.setPassword(existing.getPassword());
 
 		// Validate

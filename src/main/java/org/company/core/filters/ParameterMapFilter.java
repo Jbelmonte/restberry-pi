@@ -33,8 +33,8 @@ public class ParameterMapFilter extends Filter {
 		String queryString = null;
 		if ("GET".equalsIgnoreCase(exchange.getRequestMethod())) {
 			queryString = exchange.getRequestURI().getQuery();
-		} else if ("POST".equalsIgnoreCase(exchange.getRequestMethod())
-				&& "application/x-www-form-urlencoded".equals(exchange.getRequestHeaders().getFirst("Content-Type"))) {
+		} else if ("POST".equalsIgnoreCase(exchange.getRequestMethod()) && exchange.getRequestHeaders()
+				.getFirst("Content-Type").contains("application/x-www-form-urlencoded")) {
 			InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
 			BufferedReader br = new BufferedReader(isr);
 			queryString = br.readLine();

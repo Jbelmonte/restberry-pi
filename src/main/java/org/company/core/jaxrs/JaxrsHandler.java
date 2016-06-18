@@ -284,6 +284,9 @@ public class JaxrsHandler implements HttpHandler {
 	}
 
 	private List<Method> filterMethodsByRequestContentType(List<Method> methods, String contentType) {
+		if (contentType.indexOf(';') != -1) {
+			contentType = contentType.substring(0, contentType.indexOf(';')).trim();
+		}
 		return IntrospectionHelper.filterMethodsWithAnnotationValue(methods, Consumes.class, contentType, false);
 	}
 
@@ -309,7 +312,8 @@ public class JaxrsHandler implements HttpHandler {
 						Object value = parseValue(queryParameters.get(((QueryParam) ann).value()), type);
 						params.add(value);
 					} else if (ann instanceof BodyParam) {
-						Object value = JsonProvider.fromJson(type, exchange);
+						Object value = deserializeInput(type, exchange.getRequestHeaders().getFirst("Content-Type"),
+								exchange);
 						params.add(value);
 					} else if (ann instanceof PathParam) {
 						Object value = parseValue(pathParameters.get(((PathParam) ann).value()), type);

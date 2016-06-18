@@ -74,6 +74,8 @@ public class SiteAuthenticator extends Authenticator {
 	}
 
 	private Result doLogout(HttpExchange exchange) {
+		String currentToken = getTokenCookie(exchange);
+		tokensUsers.remove(currentToken);
 		removeTokenCookie(exchange);
 		return redirectToLogin(exchange);
 	}
