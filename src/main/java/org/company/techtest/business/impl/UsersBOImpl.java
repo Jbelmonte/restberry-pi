@@ -14,10 +14,11 @@ import org.company.techtest.model.User;
  * User business layer implementation.
  */
 public class UsersBOImpl implements UsersBO {
-	/**
-	 * DAO: no dependency injection...
-	 */
-	private UserDAO dao = new UserDAOImpl();
+	private final UserDAO dao;
+
+	public UsersBOImpl(UserDAO dao) {
+		this.dao = dao;
+	}
 
 	@Override
 	public List<User> getAllUsers() throws BusinessException {

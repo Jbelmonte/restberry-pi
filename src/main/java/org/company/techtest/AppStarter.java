@@ -52,11 +52,13 @@ public class AppStarter {
 
 	// As there's no dependency injection, just store here the reference
 	// and pass it everywhere.
-	private UsersBO usersBo = new UsersBOImpl();
+	private UsersBO usersBo;
 
 	private HttpServer server = null;
 
 	public AppStarter() {
+		UserDAO dao = new UserDAOImpl();
+		usersBo = new UsersBOImpl(dao);
 	}
 
 	public AppStarter setPort(int port) {
