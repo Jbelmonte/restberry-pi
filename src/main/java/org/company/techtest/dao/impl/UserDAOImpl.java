@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.StringUtils;
 import org.company.core.dao.exceptions.ConstraintViolationException;
@@ -17,7 +18,7 @@ import org.company.techtest.model.User;
  */
 public class UserDAOImpl implements UserDAO {
 	private Map<String, User> db = new HashMap<String, User>();
-	private long lqstIndex = 0L;
+	private AtomicLong lastIndex = new AtomicLong(0L);
 
 	public UserDAOImpl() {
 		// Add mock data
@@ -129,6 +130,6 @@ public class UserDAOImpl implements UserDAO {
 	 * @return Next autoincrement ID.
 	 */
 	private String nextAutoincrementId() {
-		return new Long(++lqstIndex).toString();
+		return lastIndex.incrementAndGet() + "";
 	}
 }
