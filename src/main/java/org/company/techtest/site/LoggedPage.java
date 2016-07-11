@@ -1,7 +1,7 @@
 package org.company.techtest.site;
 
-import org.company.core.security.Constants;
-import org.company.core.web.security.Page;
+import org.restberrypi.core.security.Constants;
+import org.restberrypi.core.web.security.Page;
 
 import com.sun.net.httpserver.HttpExchange;
 

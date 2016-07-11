@@ -5,25 +5,27 @@ import java.net.InetSocketAddress;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.company.core.filters.ParameterMapFilter;
-import org.company.core.jaxrs.JaxrsHandler;
-import org.company.core.jaxrs.annotations.GET;
-import org.company.core.jaxrs.annotations.Path;
-import org.company.core.jaxrs.security.RestAuthenticator;
-import org.company.core.security.Authorizator;
-import org.company.core.web.LoginPage;
-import org.company.core.web.NotAuthorizedPage;
-import org.company.core.web.NotFoundPage;
-import org.company.core.web.WebHandler;
-import org.company.core.web.security.SiteAuthenticator;
 import org.company.techtest.api.resources.Resource;
 import org.company.techtest.api.resources.impl.UsersResourceImpl;
 import org.company.techtest.business.UsersBO;
 import org.company.techtest.business.impl.UsersBOImpl;
+import org.company.techtest.dao.UserDAO;
+import org.company.techtest.dao.impl.UserDAOImpl;
 import org.company.techtest.site.IndexPage;
 import org.company.techtest.site.Page1;
 import org.company.techtest.site.Page2;
 import org.company.techtest.site.Page3;
+import org.restberrypi.core.filters.ParameterMapFilter;
+import org.restberrypi.core.jaxrs.JaxrsHandler;
+import org.restberrypi.core.jaxrs.annotations.GET;
+import org.restberrypi.core.jaxrs.annotations.Path;
+import org.restberrypi.core.jaxrs.security.RestAuthenticator;
+import org.restberrypi.core.security.Authorizator;
+import org.restberrypi.core.web.LoginPage;
+import org.restberrypi.core.web.NotAuthorizedPage;
+import org.restberrypi.core.web.NotFoundPage;
+import org.restberrypi.core.web.WebHandler;
+import org.restberrypi.core.web.security.SiteAuthenticator;
 
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
@@ -37,7 +39,7 @@ import com.sun.net.httpserver.HttpServer;
  * It 'discovers' all classes implementing {@link Resource} interface and
  * exposes them according to their annotations {@link Path}, {@link GET}, etc.
  * 
- * @see {@link org.company.core.jaxrs.annotations}
+ * @see {@link org.restberrypi.core.jaxrs.annotations}
  * @see {@link JaxrsHandler}
  */
 public class AppStarter {
@@ -52,11 +54,13 @@ public class AppStarter {
 
 	// As there's no dependency injection, just store here the reference
 	// and pass it everywhere.
-	private UsersBO usersBo = new UsersBOImpl();
+	private UsersBO usersBo;
 
 	private HttpServer server = null;
 
 	public AppStarter() {
+		UserDAO dao = new UserDAOImpl();
+		usersBo = new UsersBOImpl(dao);
 	}
 
 	public AppStarter setPort(int port) {

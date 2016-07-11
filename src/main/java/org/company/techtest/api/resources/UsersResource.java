@@ -2,19 +2,19 @@ package org.company.techtest.api.resources;
 
 import java.util.List;
 
-import org.company.core.jaxrs.annotations.BodyParam;
-import org.company.core.jaxrs.annotations.Consumes;
-import org.company.core.jaxrs.annotations.DELETE;
-import org.company.core.jaxrs.annotations.GET;
-import org.company.core.jaxrs.annotations.POST;
-import org.company.core.jaxrs.annotations.PUT;
-import org.company.core.jaxrs.annotations.Path;
-import org.company.core.jaxrs.annotations.PathParam;
-import org.company.core.jaxrs.annotations.Permissions;
-import org.company.core.jaxrs.annotations.Produces;
-import org.company.core.jaxrs.exceptions.ResourceException;
-import org.company.core.security.Constants;
 import org.company.techtest.api.resources.dto.UserDto;
+import org.restberrypi.core.jaxrs.annotations.BodyParam;
+import org.restberrypi.core.jaxrs.annotations.Consumes;
+import org.restberrypi.core.jaxrs.annotations.DELETE;
+import org.restberrypi.core.jaxrs.annotations.GET;
+import org.restberrypi.core.jaxrs.annotations.POST;
+import org.restberrypi.core.jaxrs.annotations.PUT;
+import org.restberrypi.core.jaxrs.annotations.Path;
+import org.restberrypi.core.jaxrs.annotations.PathParam;
+import org.restberrypi.core.jaxrs.annotations.Permissions;
+import org.restberrypi.core.jaxrs.annotations.Produces;
+import org.restberrypi.core.jaxrs.exceptions.ResourceException;
+import org.restberrypi.core.security.Constants;
 
 /**
  * Users' exposed REST interface.

@@ -2,22 +2,22 @@ package org.company.techtest.business.impl;
 
 import java.util.List;
 
-import org.company.core.dao.exceptions.NotFoundException;
-import org.company.core.dao.exceptions.PersistenceException;
-import org.company.core.exceptions.BusinessException;
 import org.company.techtest.business.UsersBO;
 import org.company.techtest.dao.UserDAO;
-import org.company.techtest.dao.impl.UserDAOImpl;
 import org.company.techtest.model.User;
+import org.restberrypi.core.dao.exceptions.NotFoundException;
+import org.restberrypi.core.dao.exceptions.PersistenceException;
+import org.restberrypi.core.exceptions.BusinessException;
 
 /**
  * User business layer implementation.
  */
 public class UsersBOImpl implements UsersBO {
-	/**
-	 * DAO: no dependency injection...
-	 */
-	private UserDAO dao = new UserDAOImpl();
+	private final UserDAO dao;
+
+	public UsersBOImpl(UserDAO dao) {
+		this.dao = dao;
+	}
 
 	@Override
 	public List<User> getAllUsers() throws BusinessException {

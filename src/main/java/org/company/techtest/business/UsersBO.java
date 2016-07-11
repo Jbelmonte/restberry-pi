@@ -2,8 +2,8 @@ package org.company.techtest.business;
 
 import java.util.List;
 
-import org.company.core.exceptions.BusinessException;
 import org.company.techtest.model.User;
+import org.restberrypi.core.exceptions.BusinessException;
 
 /**
  * Users' business layer interface
