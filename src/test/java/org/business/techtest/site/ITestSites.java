@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.company.core.security.Constants;
 import org.company.techtest.AppStarter;
 import org.company.techtest.api.resources.dto.UserDto;
 import org.company.techtest.dao.UserDAO;
@@ -16,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.restberrypi.core.security.Constants;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;

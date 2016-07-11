@@ -5,13 +5,13 @@ import java.io.IOException;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
-import org.company.core.exceptions.BusinessException;
 import org.company.techtest.business.UsersBO;
 import org.company.techtest.business.impl.UsersBOImpl;
 import org.company.techtest.dao.UserDAO;
 import org.company.techtest.model.User;
 import org.junit.Before;
 import org.junit.Test;
+import org.restberrypi.core.exceptions.BusinessException;
 
 public class UsersBOTests {
 	private UsersBO usersBo;

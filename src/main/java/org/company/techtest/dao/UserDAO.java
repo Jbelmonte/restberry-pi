@@ -3,8 +3,8 @@ package org.company.techtest.dao;
 import java.util.Arrays;
 import java.util.List;
 
-import org.company.core.dao.DAO;
 import org.company.techtest.model.User;
+import org.restberrypi.core.dao.DAO;
 
 public interface UserDAO extends DAO<User> {
 	String MOCK_USER_ID = "1";

@@ -12,14 +12,14 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.company.core.dao.exceptions.ConstraintViolationException;
-import org.company.core.dao.exceptions.NotFoundException;
-import org.company.core.dao.exceptions.PersistenceException;
 import org.company.techtest.dao.UserDAO;
 import org.company.techtest.dao.impl.UserDAOImpl;
 import org.company.techtest.model.User;
 import org.junit.Before;
 import org.junit.Test;
+import org.restberrypi.core.dao.exceptions.ConstraintViolationException;
+import org.restberrypi.core.dao.exceptions.NotFoundException;
+import org.restberrypi.core.dao.exceptions.PersistenceException;
 
 public class UserDAOTests {
 

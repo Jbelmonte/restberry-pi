@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.StringUtils;
-import org.company.core.dao.exceptions.ConstraintViolationException;
-import org.company.core.dao.exceptions.NotFoundException;
-import org.company.core.dao.exceptions.PersistenceException;
 import org.company.techtest.dao.UserDAO;
 import org.company.techtest.model.User;
+import org.restberrypi.core.dao.exceptions.ConstraintViolationException;
+import org.restberrypi.core.dao.exceptions.NotFoundException;
+import org.restberrypi.core.dao.exceptions.PersistenceException;
 
 /**
  * User data layer implementation

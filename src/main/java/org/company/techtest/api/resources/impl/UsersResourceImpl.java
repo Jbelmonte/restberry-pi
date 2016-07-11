@@ -5,16 +5,16 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.company.core.dao.exceptions.ConstraintViolationException;
-import org.company.core.dao.exceptions.NotFoundException;
-import org.company.core.exceptions.BusinessException;
-import org.company.core.jaxrs.exceptions.InvalidRequestException;
-import org.company.core.jaxrs.exceptions.ResourceException;
-import org.company.core.jaxrs.exceptions.ResourceNotFoundException;
 import org.company.techtest.api.resources.UsersResource;
 import org.company.techtest.api.resources.dto.UserDto;
 import org.company.techtest.business.UsersBO;
 import org.company.techtest.model.User;
+import org.restberrypi.core.dao.exceptions.ConstraintViolationException;
+import org.restberrypi.core.dao.exceptions.NotFoundException;
+import org.restberrypi.core.exceptions.BusinessException;
+import org.restberrypi.core.jaxrs.exceptions.InvalidRequestException;
+import org.restberrypi.core.jaxrs.exceptions.ResourceException;
+import org.restberrypi.core.jaxrs.exceptions.ResourceNotFoundException;
 
 /**
  * Users' exposed REST interface implementation.
